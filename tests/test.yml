@@ -1,0 +1,8 @@
+---
+- name: Configure swapiness
+  hosts: localhost
+  remote_user: root
+  become: true
+  roles:
+    - role: swapiness
+      swapiness_value: 10 # Example of overriding the default value

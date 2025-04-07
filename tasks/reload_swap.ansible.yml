@@ -1,0 +1,10 @@
+---
+- name: Disable all swap devices
+  ansible.builtin.command: swapoff -a
+  register: swapoff_result
+  changed_when: swapoff_result.rc != 0 # It may be already off, that's okay
+
+- name: Enable all swap devices
+  ansible.builtin.command: swapon -a
+  register: swapon_result
+  changed_when: swapon_result.rc != 0

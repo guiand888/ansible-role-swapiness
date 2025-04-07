@@ -1,0 +1,7 @@
+---
+# tasks file for swapiness
+- name: Set vm.swappiness
+  ansible.builtin.include_tasks: configure_swapiness.ansible.yml
+
+- name: Reload swap settings
+  ansible.builtin.include_tasks: reload_swap.ansible.yml

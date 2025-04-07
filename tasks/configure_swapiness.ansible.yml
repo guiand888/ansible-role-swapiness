@@ -1,0 +1,18 @@
+---
+- name: Set vm.swappiness in sysctl.conf
+  ansible.posix.sysctl:
+    name: vm.swappiness
+    value: "{{ swapiness_value }}"
+    state: present
+    reload: true
+
+- name: Verify vm.swappiness setting
+  ansible.builtin.command: cat /proc/sys/vm/swappiness
+  register: swappiness_result
+  changed_when: false # No change if this cmd is successful
+
+- name: Assert vm.swappiness is set correctly
+  ansible.builtin.assert:
+    that:
+      - swappiness_result.stdout == "{{ swapiness_value | string }}"
+    fail_msg: "vm.swappiness was not set correctly. Expected {{ swapiness_value }}, got {{ swappiness_result.stdout }}"
